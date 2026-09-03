@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { validatePromptLength, MAX_PROMPT_LENGTH } from '../utils/validatePrompt';
 
 interface PromptInputProps {
   onGenerate: (prompt: string) => void;
@@ -16,10 +17,11 @@ const EXAMPLES = [
 
 export function PromptInput({ onGenerate, isLoading }: PromptInputProps) {
   const [prompt, setPrompt] = useState('');
+  const isOverLimit = !validatePromptLength(prompt);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (prompt.trim() && !isLoading) {
+    if (prompt.trim() && !isLoading && !isOverLimit) {
       onGenerate(prompt.trim());
     }
   };
@@ -47,10 +49,15 @@ export function PromptInput({ onGenerate, isLoading }: PromptInputProps) {
             }
           }}
         />
+        {isOverLimit && (
+          <p role="alert" className="prompt-error">
+            프롬프트는 {MAX_PROMPT_LENGTH}자를 초과할 수 없습니다. (현재 {prompt.length}자)
+          </p>
+        )}
         <button
           type="submit"
           className="btn-generate"
-          disabled={!prompt.trim() || isLoading}
+          disabled={!prompt.trim() || isLoading || isOverLimit}
         >
           {isLoading ? (
             <span className="loading-spinner">생성 중...</span>

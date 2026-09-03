@@ -26,4 +26,28 @@ describe('PromptInput', () => {
     render(<PromptInput onGenerate={vi.fn()} isLoading={true} />);
     expect(screen.getByRole('button', { name: '생성 중...' })).toBeDisabled();
   });
+
+  it('500자를 초과하면 에러 메시지가 표시된다', async () => {
+    const user = userEvent.setup();
+    render(<PromptInput onGenerate={vi.fn()} isLoading={false} />);
+
+    await user.type(screen.getByRole('textbox'), 'a'.repeat(501));
+    expect(screen.getByRole('alert')).toHaveTextContent('500자');
+  });
+
+  it('500자를 초과하면 생성 버튼이 비활성이다', async () => {
+    const user = userEvent.setup();
+    render(<PromptInput onGenerate={vi.fn()} isLoading={false} />);
+
+    await user.type(screen.getByRole('textbox'), 'a'.repeat(501));
+    expect(screen.getByRole('button', { name: '컴포넌트 생성' })).toBeDisabled();
+  });
+
+  it('500자 이하이면 에러 메시지가 없다', async () => {
+    const user = userEvent.setup();
+    render(<PromptInput onGenerate={vi.fn()} isLoading={false} />);
+
+    await user.type(screen.getByRole('textbox'), 'a'.repeat(500));
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
 });
