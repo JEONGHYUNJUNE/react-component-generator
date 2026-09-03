@@ -1,8 +1,18 @@
 import { useState, useCallback } from 'react';
 import type { GeneratedComponent, Provider } from '../types';
+import { useLocalStorage } from './useLocalStorage';
+
+const COMPONENTS_KEY = 'rcg:components';
+const HISTORY_KEY = 'rcg:prompt-history';
+
+function deserializeComponents(raw: string): GeneratedComponent[] {
+  const parsed = JSON.parse(raw) as Array<Omit<GeneratedComponent, 'createdAt'> & { createdAt: string }>;
+  return parsed.map((c) => ({ ...c, createdAt: new Date(c.createdAt) }));
+}
 
 interface UseComponentGeneratorReturn {
   components: GeneratedComponent[];
+  promptHistory: string[];
   isLoading: boolean;
   error: string | null;
   generate: (prompt: string, apiKey: string | undefined, provider: Provider) => Promise<void>;
@@ -11,7 +21,12 @@ interface UseComponentGeneratorReturn {
 }
 
 export function useComponentGenerator(): UseComponentGeneratorReturn {
-  const [components, setComponents] = useState<GeneratedComponent[]>([]);
+  const [components, setComponents] = useLocalStorage<GeneratedComponent[]>(
+    COMPONENTS_KEY,
+    [],
+    { deserialize: deserializeComponents }
+  );
+  const [promptHistory, setPromptHistory] = useLocalStorage<string[]>(HISTORY_KEY, []);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,21 +55,22 @@ export function useComponentGenerator(): UseComponentGeneratorReturn {
       };
 
       setComponents((prev) => [newComponent, ...prev]);
+      setPromptHistory((prev) => [prompt, ...prev.filter((p) => p !== prompt)]);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error';
       setError(message);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [setComponents, setError, setIsLoading, setPromptHistory]);
 
   const removeComponent = useCallback((id: string) => {
     setComponents((prev) => prev.filter((c) => c.id !== id));
-  }, []);
+  }, [setComponents]);
 
   const clearAll = useCallback(() => {
     setComponents([]);
-  }, []);
+  }, [setComponents]);
 
-  return { components, isLoading, error, generate, removeComponent, clearAll };
+  return { components, promptHistory, isLoading, error, generate, removeComponent, clearAll };
 }
