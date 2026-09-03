@@ -50,4 +50,17 @@ describe('PromptInput', () => {
     await user.type(screen.getByRole('textbox'), 'a'.repeat(500));
     expect(screen.queryByRole('alert')).toBeNull();
   });
+
+  it('초기 상태에서 0/500을 표시한다', () => {
+    render(<PromptInput onGenerate={vi.fn()} isLoading={false} />);
+    expect(screen.getByText('0/500')).toBeInTheDocument();
+  });
+
+  it('입력하면 글자 수가 실시간으로 업데이트된다', async () => {
+    const user = userEvent.setup();
+    render(<PromptInput onGenerate={vi.fn()} isLoading={false} />);
+
+    await user.type(screen.getByRole('textbox'), 'hello');
+    expect(screen.getByText('5/500')).toBeInTheDocument();
+  });
 });
