@@ -1,0 +1,25 @@
+{
+  "run_id": "eval-1-mixed-changes-without_skill",
+  "expectations": [
+    {
+      "text": "CSS/스타일 변경과 패키지/설정 변경을 별도 커밋으로 분리하여 제안한다",
+      "passed": true,
+      "evidence": "2개 커밋 제안: 'chore: initialize project' + 'style: add retro terminal design system'"
+    },
+    {
+      "text": "패키지 설치 변경에 chore 타입을 사용한다",
+      "passed": true,
+      "evidence": "chore: initialize project with React 19, Vite 8, and Bun"
+    },
+    {
+      "text": "각 커밋에 포함될 파일 목록을 명시한다",
+      "passed": false,
+      "evidence": "파일 목록 없이 변경 유형만 서술. 구체적으로 어떤 파일이 각 커밋에 포함되는지 명시하지 않았다."
+    },
+    {
+      "text": "사용자 승인을 요청한다",
+      "passed": true,
+      "evidence": "WAITING_FOR_APPROVAL로 중단했다."
+    }
+  ]
+}

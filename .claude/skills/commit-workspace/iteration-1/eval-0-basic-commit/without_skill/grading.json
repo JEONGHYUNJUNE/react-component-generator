@@ -1,0 +1,25 @@
+{
+  "run_id": "eval-0-basic-commit-without_skill",
+  "expectations": [
+    {
+      "text": "git status 또는 git diff를 실행하여 변경사항을 먼저 분석한다",
+      "passed": true,
+      "evidence": "git status를 실행하여 파일 목록을 파악했다."
+    },
+    {
+      "text": "feat/fix/refactor/chore 중 하나의 타입을 포함한 커밋 메시지를 제안한다",
+      "passed": true,
+      "evidence": "feat: initial project setup for react-component-generator 제안."
+    },
+    {
+      "text": "커밋 메시지가 한국어로 작성된다",
+      "passed": false,
+      "evidence": "영어로 작성됨: 'initial project setup for react-component-generator', 'chore: initial commit' 등 모두 영어."
+    },
+    {
+      "text": "사용자 승인을 요청하고 실제 커밋을 바로 실행하지 않는다",
+      "passed": true,
+      "evidence": "WAITING_FOR_APPROVAL로 중단했다."
+    }
+  ]
+}

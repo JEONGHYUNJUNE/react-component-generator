@@ -1,0 +1,25 @@
+{
+  "run_id": "eval-1-mixed-changes-with_skill",
+  "expectations": [
+    {
+      "text": "CSS/스타일 변경과 패키지/설정 변경을 별도 커밋으로 분리하여 제안한다",
+      "passed": true,
+      "evidence": "3개 커밋으로 분리: 기반 파일(chore), 패키지(chore), CSS 테마(style). CSS와 패키지가 명확히 분리됨."
+    },
+    {
+      "text": "패키지 설치 변경에 chore 타입을 사용한다",
+      "passed": true,
+      "evidence": "chore: 의존성 패키지 설치 (react, react-live, concurrently 등)"
+    },
+    {
+      "text": "각 커밋에 포함될 파일 목록을 명시한다",
+      "passed": true,
+      "evidence": "각 커밋에 파일을 상세히 열거: 'package.json, bun.lock', 'src/index.css, src/App.css' 등."
+    },
+    {
+      "text": "사용자 승인을 요청한다",
+      "passed": true,
+      "evidence": "'이대로 커밋할까요? (수정이 필요하면 말씀해주세요)' 포함."
+    }
+  ]
+}

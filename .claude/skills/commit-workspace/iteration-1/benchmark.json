@@ -1,0 +1,73 @@
+{
+  "skill_name": "commit",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "evals": [
+        {
+          "eval_id": 0,
+          "eval_name": "basic-commit",
+          "pass_rate": 1.0,
+          "assertions_passed": 4,
+          "assertions_total": 4,
+          "duration_ms": 57271,
+          "total_tokens": 27959
+        },
+        {
+          "eval_id": 1,
+          "eval_name": "mixed-changes",
+          "pass_rate": 1.0,
+          "assertions_passed": 4,
+          "assertions_total": 4,
+          "duration_ms": 46227,
+          "total_tokens": 35093
+        }
+      ],
+      "summary": {
+        "pass_rate": 1.0,
+        "mean_duration_ms": 51749,
+        "mean_tokens": 31526
+      }
+    },
+    {
+      "name": "without_skill",
+      "evals": [
+        {
+          "eval_id": 0,
+          "eval_name": "basic-commit",
+          "pass_rate": 0.75,
+          "assertions_passed": 3,
+          "assertions_total": 4,
+          "duration_ms": 30544,
+          "total_tokens": 22690
+        },
+        {
+          "eval_id": 1,
+          "eval_name": "mixed-changes",
+          "pass_rate": 0.75,
+          "assertions_passed": 3,
+          "assertions_total": 4,
+          "duration_ms": 49694,
+          "total_tokens": 31024
+        }
+      ],
+      "summary": {
+        "pass_rate": 0.75,
+        "mean_duration_ms": 40119,
+        "mean_tokens": 26857
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+25%",
+    "mean_duration_ms": "+11630ms",
+    "mean_tokens": "+4669"
+  },
+  "analyst_notes": [
+    "한국어 커밋 메시지 작성은 스킬 없이는 완전히 실패 — 가장 discriminating한 어서션",
+    "파일 목록 명시도 스킬 있을 때만 일관되게 통과",
+    "스킬 사용 시 약 11초, ~5k 토큰 더 소비하지만 품질 차이가 명확함",
+    "승인 요청(WAITING_FOR_APPROVAL)은 스킬 유무 관계없이 통과 — non-discriminating"
+  ]
+}

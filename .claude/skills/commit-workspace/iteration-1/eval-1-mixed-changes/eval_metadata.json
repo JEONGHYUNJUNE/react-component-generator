@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "mixed-changes",
+  "prompt": "지금까지 변경사항 전부 저장해줘. CSS 테마 바꾼 거랑 패키지 설치한 거 있어",
+  "assertions": [
+    {
+      "text": "CSS/스타일 변경과 패키지/설정 변경을 별도 커밋으로 분리하여 제안한다",
+      "check": "response proposes at least 2 separate commits for CSS changes and package/chore changes"
+    },
+    {
+      "text": "CSS 테마 변경에 적절한 타입(style 또는 feat)을 사용한다",
+      "check": "CSS/theme changes are tagged with style: or feat:"
+    },
+    {
+      "text": "패키지 설치 변경에 chore 타입을 사용한다",
+      "check": "package/dependency changes are tagged with chore:"
+    },
+    {
+      "text": "각 커밋에 포함될 파일 목록을 명시한다",
+      "check": "response lists which files belong to each commit"
+    },
+    {
+      "text": "사용자 승인을 요청한다",
+      "check": "response asks for user confirmation before committing"
+    }
+  ]
+}
