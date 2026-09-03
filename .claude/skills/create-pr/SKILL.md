@@ -36,14 +36,15 @@ git status --short
 ls CONTRIBUTING.md CONTRIBUTORS.md LICENSE LICENSE.md LICENSE.txt 2>/dev/null
 ```
 
-**영문 템플릿** 사용 조건 — 아래 중 하나라도 해당:
+**영문 템플릿** (`references/pr-template-en.md`) 사용 조건 — 아래 중 하나라도 해당:
 - `LICENSE`, `CONTRIBUTING.md` 등이 존재
-- 리모트 URL이 조직 계정 소속
+- 리모트 URL이 조직 계정 소속 (개인 계정이 아닌 경우)
 - 사용자가 "오픈소스" / "open source" / "외부 기여" 언급
 
-그 외는 **한국어 템플릿**을 사용한다.
+**한국어 템플릿** (`references/pr-template-ko.md`) 사용 조건:
+- 위 조건에 해당하지 않는 모든 경우 (개인 프로젝트)
 
-템플릿 내용은 `references/pr-template.md`를 읽어 참고한다.
+판단이 끝나면 해당 파일만 읽는다. 두 파일을 동시에 읽지 않는다.
 
 ## 2단계: 변경사항 분석
 
